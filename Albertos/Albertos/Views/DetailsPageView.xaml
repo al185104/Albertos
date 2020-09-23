@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Albertos.Views.DetailsPageView"
+             xmlns:viewmodel="clr-namespace:Albertos.ViewModels.Base"
+             viewmodel:ViewModelLocator.AutoWireViewModel="True"
+             xmlns:helper="clr-namespace:Albertos.Helpers"
+             xmlns:converter="clr-namespace:Albertos.Converters">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:CultureConverter x:Key="CultureConverter"/>
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource Quicksand-Bold}"/>
+                <Setter Property="WidthRequest" Value="50"/>
+                <Setter Property="HeightRequest" Value="50"/>
+                <Setter Property="CornerRadius" Value="10"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="320"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="26"/>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Text="{Binding Pizza.Name}" FontSize="Large" FontFamily="{StaticResource Quicksand-Bold}"/>
+            <Label Grid.Row="1" Text="{Binding Pizza.Description}" FontSize="Small" FontFamily="{StaticResource Quicksand-Bold}" TextColor="{StaticResource TextGray}"/>
+            <Image x:Name="PizzaImage" Grid.Row="2" Source="pizza_02.png" WidthRequest="240" HeightRequest="240" HorizontalOptions="Center" VerticalOptions="Center"/>
+            <Label Grid.Row="3" Text="Small size 6 inch" FontSize="Small" FontFamily="{StaticResource Quicksand-Bold}"/>
+            <Label Grid.Row="4" Text="{Binding Pizza.UnitPrice, Converter={StaticResource CultureConverter}}" FontSize="Large" FontFamily="{StaticResource Quicksand-Bold}"/>
+
+            <StackLayout Grid.Row="5" Orientation="Horizontal" HorizontalOptions="Center" Spacing="20">
+                <Button x:Name="BtnSmall" Text="S" Clicked="Button_Clicked"/>
+                <Button Text="M" Clicked="Button_Clicked"/>
+                <Button Text="L" Clicked="Button_Clicked"/>
+            </StackLayout>
+
+            <Frame Grid.Row="6" Padding="10" HorizontalOptions="Center" CornerRadius="20">
+                <StackLayout Orientation="Horizontal" Spacing="20">
+                    <Button Text="-" BackgroundColor="{StaticResource Gray}"/>
+                    <Label Text="{Binding Pizza.Quantity}" FontSize="Medium" FontFamily="{StaticResource Quicksand-Bold}"/>
+                    <Button Text="+" BackgroundColor="{StaticResource HighlightYellow}"/>
+                </StackLayout>
+            </Frame>
+
+            <Frame Grid.Row="7" BackgroundColor="{StaticResource Black}" Padding="10" CornerRadius="20" HorizontalOptions="Center" VerticalOptions="Center">
+                <StackLayout Orientation="Horizontal" Padding="0">
+                    <Button Text="{x:Static helper:IconFont.Shopping}" FontFamily="{StaticResource MaterialIcons}" TextColor="{StaticResource TextBlack}" WidthRequest="40" HeightRequest="40"/>
+                    <Label Text="Add to bucket" TextColor="White" Padding="10" FontFamily="{StaticResource Quicksand-Bold}" FontSize="Small"/>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Albertos.Views.MainPageView"
+             xmlns:helper="clr-namespace:Albertos.Helpers"
+             xmlns:converter="clr-namespace:Albertos.Converters"
+             xmlns:viewmodel="clr-namespace:Albertos.ViewModels.Base"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             viewmodel:ViewModelLocator.AutoWireViewModel="True">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converter:CultureConverter x:Key="CultureConverter"/>
+            <Style TargetType="Frame">
+                <Setter Property="WidthRequest" Value="150"/>
+                <Setter Property="BorderColor" Value="White"/>
+                <Setter Property="HasShadow" Value="True"/>
+                <Setter Property="CornerRadius" Value="20"/>
+                <Setter Property="Padding" Value="10"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <AbsoluteLayout>
+            <RelativeLayout>
+                <ScrollView RelativeLayout.XConstraint="0"
+                            RelativeLayout.YConstraint="0"
+                            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=0}"
+                            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1,Constant=0}">
+                    <Grid VerticalOptions="Start">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="120"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="280"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="380"/>
+                        </Grid.RowDefinitions>
+
+                        <StackLayout Grid.Row="0" Padding="60,60,60,0">
+                            <Label Text="Find your" TextColor="{StaticResource TextGray}" HorizontalOptions="Start" FontSize="Large" FontFamily="{StaticResource Quicksand-Bold}"/>
+                            <Label Text="favourite foods" TextColor="{StaticResource TextBlack}" HorizontalOptions="Start" FontSize="Large" FontFamily="{StaticResource Quicksand-Bold}"   />
+                        </StackLayout>
+
+                        <StackLayout Grid.Row="1" Padding="50,10,0,10">
+                            <StackLayout Orientation="Horizontal" VerticalOptions="Start" Spacing="0">
+                                <StackLayout.Resources>
+                                    <ResourceDictionary>
+                                        <Style TargetType="Button">
+                                            <Setter Property="FontFamily" Value="{StaticResource Quicksand-Bold}" />
+                                            <Setter Property="FontSize" Value="Small" />
+                                            <Setter Property="TextColor" Value="{StaticResource TextGray}" />
+                                            <Setter Property="BackgroundColor" Value="White"/>
+                                        </Style>
+                                    </ResourceDictionary>
+                                </StackLayout.Resources>
+                                <Button x:Name="CatPopular" Text="Popular" WidthRequest="80" Clicked="CategoryTabClicked"/>
+                                <Button x:Name="CatMexican" Text="Mexican" WidthRequest="80" Clicked="CategoryTabClicked"/>
+                                <Button x:Name="CatItalian" Text="Italian" WidthRequest="80" FontSize="Small" Clicked="CategoryTabClicked"/>
+                                <Button x:Name="CatAll" Text="All" WidthRequest="80" FontSize="Small" Clicked="CategoryTabClicked"/>
+                            </StackLayout>
+                            <BoxView x:Name="HoverBar" BackgroundColor="{StaticResource Yellow}" HeightRequest="4" WidthRequest="80" VerticalOptions="Start" HorizontalOptions="Start"/>
+                        </StackLayout>
+
+                        <ScrollView Grid.Row="2" Orientation="Horizontal" Margin="20,0" HorizontalScrollBarVisibility="Never">
+                            <StackLayout
+                                x:Name="ItemList"
+                                Padding="10"
+                                Orientation="Horizontal"
+                                BindableLayout.ItemsSource="{Binding Pizzas}"
+                                Spacing="30">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame>
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference ItemList}, Path=BindingContext.ItemSelectedCommand}" CommandParameter="{Binding .}"/>
+                                            </Frame.GestureRecognizers>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="150"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <skia:SKCanvasView Grid.Row="0" WidthRequest="150" HeightRequest="150" PaintSurface="SKCanvasView_PaintSurface"/>
+                                                <Image Grid.Row="0" Source="pizza_01.png" WidthRequest="120" HeightRequest="120" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                                                <Label Grid.Row="1" Text="{Binding Name}" FontSize="Medium" HorizontalOptions="Start" FontFamily="{StaticResource Quicksand-Bold}" TextColor="{StaticResource TextBlack}" LineBreakMode="TailTruncation"/>
+                                                <Label Grid.Row="2" Text="{Binding Description}" FontSize="Small" HorizontalOptions="Start" FontFamily="{StaticResource Quicksand-Bold}" TextColor="{StaticResource TextGray}" LineBreakMode="TailTruncation"/>
+                                                <StackLayout Grid.Row="3" Orientation="Horizontal" VerticalOptions="End" Padding="10,0">
+                                                    <Label Text="{Binding UnitPrice, Converter={StaticResource CultureConverter}}" FontSize="Large" FontFamily="{StaticResource Quicksand-Bold}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource Yellow}"/>
+                                                    <Button HorizontalOptions="End"
+                                                        VerticalOptions="End"
+                                                        HeightRequest="40"
+                                                        WidthRequest="40"
+                                                        CornerRadius="10"
+                                                        Text="{x:Static helper:IconFont.Shopping}" 
+                                                        FontFamily="{StaticResource MaterialIcons}"
+                                                        BackgroundColor="{StaticResource HighlightYellow}"
+                                                        TextColor="{StaticResource Black}"/>
+                                                </StackLayout>
+                                            </Grid>
+                                        </Frame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </ScrollView>
+
+                        <StackLayout Grid.Row="3" Padding="60,20">
+                            <Label Text="Recommended for You" TextColor="{StaticResource TextBlack}" HorizontalOptions="Start" FontSize="Large" FontFamily="{StaticResource Quicksand-Bold}"/>
+                        </StackLayout>
+
+                        <ScrollView Grid.Row="4" Orientation="Horizontal" Margin="20,0,20,100" HorizontalScrollBarVisibility="Never">
+                            <StackLayout
+                                x:Name="RecommendedList"
+                                Padding="10"
+                                Orientation="Horizontal"
+                                BindableLayout.ItemsSource="{Binding Pizzas}"
+                                Spacing="30">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Frame>
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference RecommendedList}, Path=BindingContext.ItemSelectedCommand}" CommandParameter="{Binding .}"/>
+                                            </Frame.GestureRecognizers>
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="150"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+                                                <skia:SKCanvasView Grid.Row="0" WidthRequest="150" HeightRequest="150" PaintSurface="SKCanvasView_PaintSurface"/>
+                                                <Image Grid.Row="0" Source="pizza_02.png" WidthRequest="120" HeightRequest="120" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                                
+                                                <Label Grid.Row="1" Text="{Binding Name}" FontSize="Medium" HorizontalOptions="Start" FontFamily="{StaticResource Quicksand-Bold}" TextColor="{StaticResource TextBlack}" LineBreakMode="TailTruncation"/>
+                                                <Label Grid.Row="2" Text="{Binding Description}" FontSize="Small" HorizontalOptions="Start" FontFamily="{StaticResource Quicksand-Bold}" TextColor="{StaticResource TextGray}" LineBreakMode="TailTruncation"/>
+                                                <StackLayout Grid.Row="3" Orientation="Horizontal" VerticalOptions="End" Padding="10,0">
+                                                    <Label Text="{Binding UnitPrice, Converter={StaticResource CultureConverter}}" FontSize="Large" FontFamily="{StaticResource Quicksand-Bold}" HorizontalOptions="StartAndExpand" TextColor="{StaticResource Yellow}"/>
+                                                    <Button HorizontalOptions="End"
+                                                            VerticalOptions="End"
+                                                            HeightRequest="40"
+                                                            WidthRequest="40"
+                                                            CornerRadius="10"
+                                                            Text="{x:Static helper:IconFont.Shopping}" 
+                                                            FontFamily="{StaticResource MaterialIcons}"
+                                                            BackgroundColor="{StaticResource HighlightYellow}"
+                                                            TextColor="{StaticResource Black}"/>
+                                                </StackLayout>
+                                            </Grid>
+                                        </Frame>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </StackLayout>
+                        </ScrollView>
+
+                        <Button x:Name="ShowNavButton" Text="{x:Static helper:IconFont.Menu}" FontFamily="{StaticResource MaterialIcons}" BackgroundColor="{StaticResource HighlightYellow}" HeightRequest="40" WidthRequest="40" Margin="4,10" CornerRadius="10" VerticalOptions="Start" HorizontalOptions="Start"
+                            Clicked="ShowNavBarClicked"/>
+                        
+                    </Grid>
+                </ScrollView>
+            </RelativeLayout>
+
+            <StackLayout x:Name="NavBar" 
+                         AbsoluteLayout.LayoutBounds="0,0,52,1" AbsoluteLayout.LayoutFlags="SizeProportional" 
+                         BackgroundColor="{StaticResource Yellow}" 
+                         WidthRequest="52"
+                         Spacing="30"
+                         Padding="0,10"
+                         HorizontalOptions="Start"
+                         TranslationX="-52">
+                <Button x:Name="HideNaveButton" Text="{x:Static helper:IconFont.Backburger}" FontFamily="{StaticResource MaterialIcons}" BackgroundColor="{StaticResource HighlightYellow}" HeightRequest="40" WidthRequest="40" CornerRadius="10"
+                                Clicked="HideNavBarClicked"/>
+                <Button Text="{x:Static helper:IconFont.Magnify}" FontFamily="{StaticResource MaterialIcons}" BackgroundColor="{StaticResource HighlightYellow}" HeightRequest="40" WidthRequest="40" CornerRadius="10"/>
+
+                <ListView ItemsSource="{Binding Options}" HasUnevenRows="True" VerticalOptions="FillAndExpand" Margin="0,50" SeparatorVisibility="None" SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Button Text="{Binding .}" FontFamily="{StaticResource MaterialIcons}" BorderColor="{StaticResource Yellow}" HeightRequest="80" CornerRadius="0" FontSize="Large"/>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Button Text="{x:Static helper:IconFont.Cog}" FontFamily="{StaticResource MaterialIcons}" BackgroundColor="{StaticResource HighlightYellow}" HeightRequest="40" WidthRequest="40" CornerRadius="10"/>
+            </StackLayout>
+
+            <Frame AbsoluteLayout.LayoutBounds="0.5,0.98,115,60" AbsoluteLayout.LayoutFlags="PositionProportional" Padding="10" CornerRadius="20" BackgroundColor="{StaticResource Black}" HorizontalOptions="Center" VerticalOptions="Center">
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="{x:Static helper:IconFont.Shopping}" FontFamily="{StaticResource MaterialIcons}" BackgroundColor="{StaticResource HighlightYellow}" HorizontalOptions="Start" HeightRequest="40" WidthRequest="40" CornerRadius="10"/>
+                    <Label Text="2 Items" TextColor="White" Padding="5,0,0,0" FontSize="Small" FontFamily="{StaticResource Quicksand-Bold}" LineBreakMode="TailTruncation"/>
+                </StackLayout>
+            </Frame>
+            
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

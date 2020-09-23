@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Albertos.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <Color x:Key="Yellow">#FFD35A</Color>
+            <Color x:Key="Black">#000000</Color>
+            <Color x:Key="HighlightYellow">#FAC73A</Color>
+            <Color x:Key="Gray">#F6F6F6</Color>
+
+            <Color x:Key="TextGray">#898989</Color>
+            <Color x:Key="TextBlack">#121212</Color>
+
+            <!-- Material Font Icons -->
+            <OnPlatform x:TypeArguments="x:String" x:Key="MaterialIcons">
+                <On Platform="Android" Value="materialdesignicons-webfont.ttf#Material Design Icons" />
+            </OnPlatform>
+
+            <!-- Fonts -->
+            <OnPlatform x:TypeArguments="x:String" x:Key="Quicksand">
+                <On Platform="Android" Value="Quicksand-Regular.ttf#Quicksand" />
+            </OnPlatform>
+            <OnPlatform x:TypeArguments="x:String" x:Key="Quicksand-Bold">
+                <On Platform="Android" Value="Quicksand-Bold.ttf#Quicksand Bold" />
+            </OnPlatform>
+            <OnPlatform x:TypeArguments="x:String" x:Key="Quicksand-Light">
+                <On Platform="Android" Value="Quicksand-Light.ttf#Quicksand Light" />
+            </OnPlatform>
+            <OnPlatform x:TypeArguments="x:String" x:Key="Quicksand-Medium">
+                <On Platform="Android" Value="Quicksand-Medium.ttf#Jost Medium" />
+            </OnPlatform>
+            <OnPlatform x:TypeArguments="x:String" x:Key="Quicksand-SemiBold">
+                <On Platform="Android" Value="Quicksand-SemiBold.ttf#Quicksand SemiBold" />
+            </OnPlatform>
+
+            <!-- Global Style -->
+            <Style TargetType="Grid">
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="ColumnSpacing" Value="0"/>
+                <Setter Property="RowSpacing" Value="0"/>
+                <Setter Property="BackgroundColor" Value="White"/>
+            </Style>
+            <Style TargetType="StackLayout">
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Spacing" Value="0"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+            </Style>
+            <Style TargetType="Label">
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="Micro"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+                <Setter Property="FontSize" Value="Micro"/>
+            </Style>
+            <Style TargetType="Frame">
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Margin" Value="0"/>
+            </Style>
+            <Style TargetType="SearchBar">
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="FontSize" Value="Micro"/>
+                <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Yellow}"/>
+                <Setter Property="TextColor" Value="{StaticResource Black}"/>
+                <Setter Property="FontFamily" Value="{StaticResource Quicksand}"/>
+                <Setter Property="FontSize" Value="Medium"/>
+                <Setter Property="Padding" Value="0"/>
+                <Setter Property="HorizontalOptions" Value="Center"/>
+                <Setter Property="VerticalOptions" Value="Center"/>
+            </Style>
+            <Style TargetType="Image">
+                <Setter Property="Aspect" Value="AspectFit"/>
+            </Style>
+
+            <!-- runtime styles -->
+            <Style x:Key="CategoryStyle" TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource Quicksand-Bold}" />
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="TextColor" Value="{StaticResource TextGray}" />
+                <Setter Property="BackgroundColor" Value="White"/>
+            </Style>
+            <Style x:Key="SelectedCategoryStyle" TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource Quicksand-Bold}" />
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="TextColor" Value="{StaticResource TextBlack}" />
+                <Setter Property="BackgroundColor" Value="White"/>
+            </Style>
+
+            <Style x:Key="SizeStyle" TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource Quicksand-Bold}" />
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="TextColor" Value="{StaticResource TextGray}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource Gray}"/>
+            </Style>
+            <Style x:Key="SelectedSizeStyle" TargetType="Button">
+                <Setter Property="FontFamily" Value="{StaticResource Quicksand-Bold}" />
+                <Setter Property="FontSize" Value="Small" />
+                <Setter Property="TextColor" Value="{StaticResource TextBlack}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource HighlightYellow}"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
